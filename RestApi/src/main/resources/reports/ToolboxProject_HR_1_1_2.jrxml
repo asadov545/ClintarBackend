@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ToolboxProject_HR_1_1_2" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="0" uuid="bab2778a-6cce-4280-8d24-0cb1bf0a6083">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<import value="org.apache.commons.codec.binary.Base64"/>
+	<parameter name="PRJ_ID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select   TPH2.TB_PRJ_HR_1_2_ID,TPH2.TITLE,TPH2.BODY,getUserFullNameById(PRJ.SUPERVISIOR_ID) AS SUPERVISIOR,REPLACE(PRJ.SIGNATURE,'data:image/png;base64,', '') as SIGNATURE,
+DATE_FORMAT(PRJ.CREATE_DATE, "%d/%m/%Y") as CREATE_DATE 
+from TB_PRJ as PRJ left join  TB_PRJ_TEMPLATES TPT ON (PRJ.PT_ID=TPT.PT_ID)
+LEFT JOIN  TB_PRJ_HR_1_2 AS TPH2 ON (TPT.PT_CAT_ID=TPH2.PT_CAT_ID) WHERE PRJ.PRJ_ID= $P{PRJ_ID}]]>
+	</queryString>
+	<field name="TITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TITLE"/>
+	</field>
+	<field name="TB_PRJ_HR_1_2_ID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="TB_PRJ_HR_1_2_ID"/>
+	</field>
+	<field name="BODY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BODY"/>
+	</field>
+	<field name="SUPERVISIOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SUPERVISIOR"/>
+	</field>
+	<field name="SIGNATURE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SIGNATURE"/>
+	</field>
+	<field name="CREATE_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CREATE_DATE"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="590" splitType="Prevent">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="550" height="40" uuid="de8d72b6-f7ae-4696-b7e7-ec04d1e641f2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TITLE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="40" width="550" height="360" uuid="e9987da4-0342-4b80-b124-c8eb51b0f0f7"/>
+				<textFieldExpression><![CDATA[$F{BODY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="263" y="540" width="135" height="30" uuid="7b7ea7f6-1569-4f24-a1ea-3e3364e50279"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="490" width="140" height="30" uuid="b4ae82b1-48c0-475f-a0b3-8e3e10f50e60"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Employee (Signature)]]></text>
+			</staticText>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="50" y="470" width="130" height="40" uuid="08b06d16-69a3-44fd-b748-a6551a90c774"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA[new ByteArrayInputStream(Base64.decodeBase64($F{SIGNATURE}.getBytes()))]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="10" y="520" width="230" height="1" uuid="80c5f3e5-b330-4df5-a7e0-256a5ab4bd9f"/>
+			</line>
+			<textField>
+				<reportElement x="10" y="540" width="230" height="30" uuid="c9cee922-4348-4f08-805c-6173c9eb7487"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CREATE_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="420" width="230" height="30" uuid="22a015cd-dffe-4780-a29f-6766b80b2c04"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SUPERVISIOR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="420" width="140" height="30" uuid="48df0a2f-0a60-4edb-a915-5f88f88f0512"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Employee (Print)]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

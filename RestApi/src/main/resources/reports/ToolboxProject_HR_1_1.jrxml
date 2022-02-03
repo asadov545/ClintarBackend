@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ToolboxProject" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="577" leftMargin="15" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9f146ea0-7760-44cc-aef3-532303305307">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<import value="org.apache.commons.codec.binary.Base64"/>
+	<subDataset name="Q2" uuid="77c53db4-293e-4218-b9b9-a2130a6bbca7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+		<parameter name="PRJ_ID" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select  COM.NAME,REPLACE(COM.LOGO,'data:image/png;base64,', '') as LOGO,CON.TEXT from COMPANY as COM left join CONTACT AS CON ON (COM.COMPANY_ID=CON.CONTACT_ID) where COM.COMPANY_ID=1]]>
+		</queryString>
+		<field name="NAME" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="NAME"/>
+		</field>
+		<field name="LOGO" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="LOGO"/>
+		</field>
+		<field name="TEXT" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TEXT"/>
+		</field>
+	</subDataset>
+	<subDataset name="QTASK" uuid="77c53db4-293e-4218-b9b9-a2130a6bbca7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+		<parameter name="PRJ_ID" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select  TPT.PRJ_T_ID,TPT.TITLE,TPT.HAZARD_TEXT,TPT.CONTROL_TEXT,TPT.RISK_BEFORE,TPT.RISK_AFTER from TB_PRJ_TASKS AS TPT WHERE TPT.PRJ_ID= $P{PRJ_ID}]]>
+		</queryString>
+		<field name="TITLE" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TITLE"/>
+		</field>
+		<field name="HAZARD_TEXT" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="HAZARD_TEXT"/>
+		</field>
+		<field name="CONTROL_TEXT" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="CONTROL_TEXT"/>
+		</field>
+		<field name="RISK_BEFORE" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="RISK_BEFORE"/>
+		</field>
+		<field name="RISK_AFTER" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="RISK_AFTER"/>
+		</field>
+	</subDataset>
+	<subDataset name="QHR2" uuid="77c53db4-293e-4218-b9b9-a2130a6bbca7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+		<parameter name="PRJ_ID" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT TPH2.TITLE,TPH2.BODY FROM TB_PRJ_HR_1_2 TPH2 where TPH2.PT_CAT_ID=36]]>
+		</queryString>
+		<field name="TITLE" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TITLE"/>
+		</field>
+		<field name="BODY" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="BODY"/>
+		</field>
+	</subDataset>
+	<subDataset name="QUSER" uuid="77c53db4-293e-4218-b9b9-a2130a6bbca7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+		<parameter name="PRJ_ID" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[select  TBU.PU_ID,getUserFullNameById(TBU.USER_ID) AS USERNAME ,REPLACE(TBU.SIGNATURE,'data:image/png;base64,', '') as SIGNATURE from TB_PRJ_USERS AS TBU WHERE TBU.PRJ_ID= $P{PRJ_ID}]]>
+		</queryString>
+		<field name="USERNAME" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="USERNAME"/>
+		</field>
+		<field name="SIGNATURE" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="SIGNATURE"/>
+		</field>
+		<variable name="Variable_1" class="java.lang.String">
+			<variableExpression><![CDATA["iVBORw0KGgoAAAANSUhEUgAAAm4AAAC7CAYAAADcxBKmAAAgAElEQVR4Xu2dC8w1R1nH/yBKpS1YoCAVRcBYLxjAomJMxAJyUQjFpIRLYkETmrSYAkEpEgMoCBixoIBSoxUviG3lrqJAgEgEI+US5BrCJSGoQKhFJAW5mP/Xfcqw7J6zl9nL7P4meXPe7/12Z57nN3PO/s8zM8/cQBQIQAACEIAABCAAgSII3KAIKzESAhCAAAQgAAEIQEAINwYBBCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozIQABCAAAQhAAAIIN8YABCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozIQABCAAAQhAAAIIN8YABCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozIQABCAAAQhAAAIIN8YABCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozIQABCAAAQhAAAIIN8YABCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozIQABCAAAQhAAAIIN8YABCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozIQABCAAAQhAAAIIN8YABCAAAQhAAAIQKIQAwq2QjsJMCEAAAhCAAAQggHBjDEAAAhCAAAQgAIFCCCDcCukozITAwgS+Q5J/vlfSf1e2+PVjC9tF8xCAAAR2RQDhtqvuxlkIfAMBC7E7V4LsLokwC4Fmkda3vCm5If39XYng8yUfr/4dIrBvO3u7/gGSzpB0lqT7SDpZ0umSnibJnFPWe2ODvxDYFQGE2666G2d3SCDEmUWYf34mEWo7xLFZl18t6X2SLt6shzgGAQicIIBwYyBAYBsELMpuVwmzVKRtwzu86Erg3ZIeSwSuKy6ug0B5BBBu5fUZFkPABDy1eY9KqEUUDTIQMIH/kfTLkl4v6WqQQAAC2yKAcNtWf+LNtgmcJ+mcZLpzLm+9Hq1tE0Ksh7vZXMbQzvV9cWwN4vmSLoUXBCCwLQIIt231J95sj4CF2oMqwWaRlLM4GvMpSW+rhJnFWQi0oYvdY5rWdqa/N/3bf7NP3qCQipBbSPqKJItBT/3F//m6OoOxgvGaCqjr9lSzRaqLf4+2PyfpNEnfKukD1YYOXxe2hA2uq4s9cV36Gr7FZo1bSvq8pFtXGxBuU9njfvFaNhdz+hVJvyTpu1sGxtlMm+Z8y1AXBJYngHBbvg+wAAJ1AhYqjq49siZohpCy+LAYiF2dfvDHv4fUxz3rI2BReW9JfyLp1Jp5jrg58kaBAAQ2QgDhtpGOxI1NEAix5jVrQ8qbK4HmqJmF2tCo2ZC2uWd5Ah43l1dpQlJrblqte1veQiyAAARGE0C4jUZIBRAYRcDRtYuq6FqfqVBPs0X+Lr9aqFEg8GJJv1jD8EBJrwENBCCwDQIIt230I16UR8Dr1jwV6jVsfcorJf2ZpFf0uYlrd0PAqUAuqXn7qGrM7AYCjkJgywQQblvuXXxbGwFH1Dwd6ofrsR2Bqe1ep/ZUxNraunOV9nit2+tqlj1E0hWrtBajIACB3gQQbr2RcQMEehNwzrUfl/Rbkm7V8W7vWnRUzYKNY6E6QuOyE18MHJFNiyO7nkKlQAACGyCAcNtAJ+LCagl4sfgFks7tYSFToT1gcek3EbDQf0rtrz7P1H+nQAACGyCAcNtAJ+LCqgg4HcP9JD28x/o1bzR4bhUpaUt0uyonMWa1BPwlwTtL08JU6Wq7C8Mg0J8Awq0/M+6AQBsBPzQfXeXU6kLJ0TVPh9antrrcyzUQaCLgKO8ba/9BEl7GCgQ2RADhtqHOxJVFCVi0vajKsH/IkDdIeoekl5DCY9H+2mrjTVOlRNy22tv4tUsCCLdddjtOZybQFOVIm/Ch385q/8fJcUWZTaA6CJwg4C8Pjvqm5UxJH4IPBCCwDQIIt230I14sR8Ci7VUNRw3ZotdXh3w7PQM7Q5fro720fLqkj0o6ueYwn/N7GQH4uQsCvKF30c04OSEBryeqH1H1CUmPl/RajhqakDxV1wlcViV1Tv/uUzW8xo0CAQhshADCbSMdiRuLEHimpItrLX9a0gtJv7BIf+y50aa1bebxYBI373lY4PsWCSDcttir+DQHAZ988H5JJ9UaYyH4HPRpIyXQJto8Ve9NM0zTM14gsCECCLcNdSauzErAiXVfUGvRGxB+VdLVs1pCY3sm8DBJvyvpjBoEj8FfkOSpUgoEILAhAgi3DXUmrsxGwGeOem2bj7JKy4XVNOlshtDQbgl4DF4p6Z6Smj7Hifzudmjg+NYJINy23sP4NwUBRzmchy0tTqL7qCkao04I1Aj4C4M3ItS/OMRliDaGDAQ2TADhtuHOxbXJCLxd0lm12n9a0j9P1iIVQ+A6AudUos0Rt3pxvsAnSfpzdjMzXCCwXQIIt+32LZ5NQ8CCzcItLVdJuts0zVErBK4n4MPjDx0W/7jqzFuQQQACGyaAcNtw5+LaJAScld7Z6dPC1NQkqKk0IfDyKtrWBOUaSY/lzFvGCwT2QQDhto9+xst8BJqOFLqjpI/ka4KaIHA9gbaNMHGBRZsTQL8LZhCAwD4IINz20c94mY+AjxRyDrcoH5N0+3zVUxMEridgQeZIW9N6Nl/07ioK5zFIgQAEdkIA4baTjsbNbAQQbtlQUtEBAsfWs725Em0k12UYQWBnBBBuO+tw3B1N4GsNNfA+Go2VCioCjq451Yd3j7aVp3GkGuMFAvslwANnv32P58MIINyGceOu4wQ8NWrRlk7F1+9yrkDnDKRAAAI7JYBw22nH4/ZgAgi3wei4sYWAo2yXSHrkAUJsQmD4QAACJwgg3BgIEOhHoGlX6V3Z1dcPIldfT8Br2ZzKo20Dgi9kPRsDBgIQuJ4Awo3BAIF+BBwV8XRWWryrlJ19/Tju/erzqnVqh6ZFzYj1bHsfKfgPgRoBhBtDAgL9CDQJN9Yd9WO416st0izYjkXYzOfj1QYF8rPtdbTgNwRaCCDcGBoQ6EfAD1+nBEnLayXdv181XL0jAveoxNqhnaIpjudV0ThSfexokOAqBLoSQLh1JcV1EPg6gS9K+rYEyGcknQ4gCCQEIrpmsXaXjmS8ls3ROKJsHYFxGQT2SADhtsdex+exBNhZOpbgNu+3WHN0zdPpTu3RtfgEBAu2N3W9gesgAIH9EkC47bfv8Xw4AUdE7ly7nZ2lw3mWfKejaR4LfcWafXaE7bmSXlEyAGyHAATmJYBwm5c3rW2DgCMjjqyk5WwiJtvo3A5eOHWHNxk8RtL3dbg+vcT52JxA14KNncg94XE5BCBAHrc9j4FTJD1BkvOS/ceeQQzw/amSnH8rLaRtGACyoFtCrHnNWp9p0HDR0TULNk49KKjTMRUCayRAxG2NvTK9TX8qySksXD4r6S+qNTbTt7yNFrweyZnuEW7b6M82L4ZsMEjrckqPiK6xQ3TbYwXvIDAbAYTbbKhX01BTOgsb9wBJf7caK9dtiCMub6yZ6IjKkEjMuj3dn3Uh1rxm7Vhy3CY6IdYs2JgK3d/4wWMITE4A4TY54tU14HU5f9Bg1d9IeujqrF2nQV6Q/s6aad6w4A0KlPIIjBVrTgfzjCq6RmStvP7HYggURQDhVlR3ZTG2KVrkis+XdGmWFvZRCSlByu5ni+8HVbtBh0TWHGH1JhXvCCXvWtljAeshUBQBhFtR3ZXFWE/xNU3p+SHknZGUbgQ8DXa72qWcWdqN3VJXpTnWhog151vzblALNcTaUr1IuxDYOQGE2/4GwLMkPbHB7WdLunh/OAZ7TEqQwehmvdFpO/xFxT9DxZrXqzmyxpq1WbuOxiAAgSYCCLf9jYsXSLqgwe0XSrpwBzic1sEJUz1V5t/T4vVJEUnxVNih4sjLRbULSAmy/AByn0ZkrevZoHWrHVlDrC3fl1gAAQg0EEC47W9YXFat66l77gdVpAjJTeU2ku6bRDxeLemq3I0cqM8iLSIvXc+NdHWOsPjH0bX4PQRdUy63F7ewndHVXTblPrVYG5pjzUlxLdj9Hoi+3iVInIYABNZPAOG2/j7KbeHlks5tqPQKSQ/J3VjV1u80TFPFtNOVkv63atfJgM/MeAKBH+SOiuVO02HbHZ2ri8APSrp79X+HUKZTdvV1cul9vu7Q9J6jS/7pOwUYOx/DjyZbm87NtGh1e0N2TkZ0M2z1v5s2eNgWXxO+1W2Lv/vEgttK+k5JJw0ct/bjE5I+UL02+RUR2PT/nPLD/x7CYaCp3AYBCEDgOgIIt/2NhDk3J/yspH+Q9C09MX9I0umSTut5H5dDYAkCX5J0raR31Bq3sGsSxyH66mvm/HnMQfNL9CBtQqAgAgi3gjork6lzTpU2HcaeyQ2qgcAuCKRCLn73+8ri79g6zF0AwkkI7I0Awm1vPS7NKdy8ju1H94cYjyEwG4HYUGMx5wieXxF0s+GnIQjMTwDhNj/zpVucU7g1pczwOrYbVxCGpmhYmiHtQ2DtBCzg/P7zq3fJkndu7T2GfRDoSADh1hHUhi5r25wwxa7SJuHmdWvpou5Tq0X+95L0qWozgyMHD5R0w2rjgq/x35zGwwvDvUD9ZpK8GzCKx/JNM/RTWqeri3ZsszcS+CF4B0lfkHQjSbdoaPPLle1efG+7/ON1UF7r57VQp1SvvtUL6329f/z7/0n6alJniNwMrn1DFbEhxH88WdIXK59uUglrc7A97gP/n23+fPU3+9N33WJu+6euz/30n1UjHnvm4r4xE3Nw8Tj8geSLyNQ2ja0/hJxz0nkcs7liLFHuh8ACBBBuC0BfuMk5NyfMmaT2YZJeUmPrB67TkHizw1SlKS2IH4g+t3QvCVtjx2i6y9Y7Q79H0k9Wu0S9+7OeN2+qPpmj3piijFf3tc8sfW/DLt9Du3/rO55jl7C/MExdbLNFnN+nFnJ7Ga9Tc6V+CExKAOE2Kd5VVj5nOhA/FHweZFqcK87RvdylKbGwRds/5W6oVp8Fykcb2thbTjdziMTGFiNNCY77doWjgm+popOxO9PCpi4QD6VU6dtmrusj71+8Dt1QkKaECabx6tx1OYttdDTx+ZL+FSGXEy11QSAfAYRbPpal1NQUIbLtU2T9f6ykS2pgXlklSs3Nq8mvuca3hagT/NZLfVo4t89L1mfRYAERx0nliqbF4e2OAvVNjZGKuvT3EDpxasaS3KJt+5ZG7fy+GBLxCmEX60XtqwV0jhIROTY95KBJHRDIRGCuB1smc6kmA4F3NiSOdbX+tu3pvZzFDxNPzdbLFIexLyncthx1S48IsyiIn1zjZIxQG2NDCJ54TYVe7khWVzstkN4j6WUZotIR9QxxnSsqGYLanxdeb8qmh669y3UQyEQA4ZYJZEHVzCncjMVRhfp6nSmmEZ8k6bdr/eANDq+ZqW/aom5nD4gczWRyYzNpJM0P/b6nMhyz3Wup4uEfUadj9yz1/7H+rP46l7B7jqRLM63RdD+G6PaJIrmicu6b2PQQqUiGRA6X6mPahUBxBBBuxXXZaIPbDpmfYlepjW06jN1/zx11a5qWPb968I2G1qECR2yubrjOxyn9YIf7574kImkRmYkHe047IiITqSn6Tn3mtCV3XRGhq7+aY67olm22CPp1SX+d2YGwO6a6c4vRNDLnqCo7WDN3INXtlwDCbX9937ardIo1bqbbNo3oD3ZHo3KVpmnZ3G0cs7VJPPqeqTZkHLMn/r++ceDYGahd661f5we0RVoItT1HXkIYBet0Y8GQHaNzjOWHVulNbGt9U9HQMRH3eSyEmPM42fPYGMuS+3dOAOG2vwHgXGk+B7Refl7S30+Eo20a8XFVRC5Xs2+XdFZS2SclfVeuyjvU44e1c3/Vc6852uAI4xxRh4j4RCQlx+7OJtcjqWs6TdYBEZdUBGL61dOWn63Gx7GE1P8m6UJJfp2jpJtP/HvuSKLHjneeE5GbozdpYzMEEG6b6cpOjliwWbg1ldxTl2kbFhOOwtQjDRYyD864BuxVVeLetG1vWnA0ca7yCEl/2dDYFBFNc401afGQncLPEGkRNYnUFlO0tfc6H1CtP3v6ARD+guKUHV4rOmepT696zA2JHtZt9ueABZx/vLuWAgEIHCCAcNvf8HA2/3qZYxqmbRrRIsDiLcfUSdN06VurNUJzrq9qyl9n5t61O3QXXkQ8HKGxYKsnbs01kmMaK53yzFU39XQn8EhJTzmyOcTjzF8Iho6p7ta0XxlrI9NdrGPEnH1xhN6idI4IdQ4G1AGBWQkg3GbFvXhjjrh9UJLzi6XFoskRt6lL00kKbtN/t3jL8UHdtIbv8Q355Kb01SLLu3frpWvKFUfR/EB09OWekm4+kbHpmrQQahM1RbUDCHgMWLxZxLUVv2csdLzsYC0l3cFqQTdk44P98sam52X6XFgLG+yAwGgCCLfRCIur4G2SfqLB6jnGgqdaLBKbvpHHw2esePuh6tihuot3k3TVjL3Vlug43agQUbSY5pxq04DdRqTN2PmZm/qxSpx5bB8ScI5qzz192tXVWHPZV8gh4LoS5rrdEJjjYb0bmIU4+jpJ926wdYo1WE1I2qJRvjZXShJHH36voXHnenvWTP1kkeooVn1Btw8qd4qQH5nIDh8OHxsG/BpHLk3UHNXORMDj6V86pJbxmPP4n3NpQF8E9sUCztP+TSeONNVnAecvQ47AUSCwawIIt/11v3ePvlTSKQ2uzzUePPVzWQv610q6/8hu8UPByXh9wHm95N7JGvXHdFCarPUO1UHrI91pvd150kKcIdKmoryuev3e8RTisXVkXv/msZ5j7eiUBCziLOAcLeySFNjC1FHrJdf1TcmDuiFwlMBcD+qjhnDBrASeKenihhadqf0JM1nStlnBzfuh4zVvY4q/nV/QkvqkS3SxvmMuTauR/j7VJoHU969Ier+kv03Ot2Rn55jRUfa9Fjse3xd1cCOiVGOXIHRoavQlfl/Z3i455Cxe/T4uwa/RYKgAAikBhNs+x0PbGaKm8ewWUTcFqbZTFfqIt6ZM9WmOLD8MmorzrXnK0vf7QZjrkPQcnOL8zpjmXPO0Vw5/qWMYAY9tv4eOLf73OHL0zV+ISihdBZxFm6NvpfhVAntsLIAAwq2ATprIxMslnXug7v+qojwR2bF48HjJHen5K0kPb7HjE5I+J+mGVWJbiyx/WLeJsYlQTVbtF6pkqjHNyc7OyVBvumJPNXp9aJfpUwudUqJU/gLmCNwxYZprY9OmBwnObYcAwm07fdnXkztK+nDfm5LrUwF3aAG8I1kR1fLtkcRzRNPF3eoEtmdKOqnB8i7TtsU5jMGzE/D7yssPnD7kUCkxStVlXR9r32YfcjS4FAGE21Lk19GuI26OvFHGE/D0pktMa/rVD8lYRH1oenrps0zHe08NayHgL0mePj22TmzuE0XG8um6rm+qzUdj7ed+CGQjgHDLhrLIik6V9GRJTyzS+umMDhEWLaQRxVSM9U210Zbbze0g3qbrzz3W7C8KnkI8dL6o14aVNHXqfrRfFqaHdqDmTOi9x7GDzysngHBbeQfNaJ5Fxc9JcrLPEopTYVhEpet1IrqV/s2/W2DF3zztcih3lK/1w2yqDQFtx2GZuR9Ia8qAX8I4wMbDBA59WfCdHu8+iq2UdW+2uUv0Lfc5yIwzCKyGAMJtNV2xGkMie783AMTRNU07N3MabBEW+aYsvtze/STduKWRset0uizmtnDz+rPcAs4PHdfZFjEoMQqScyxQV34Cfi97XLVF3/x+OrvA3GjHoopflfSb1fs4P1VqhMBCBBBuC4EvtNn0SKZIuRGpNPx/TSWdWvT/p5saDomiYw8b1+X7HaEakoyzS/1hryNhcfh6jq47Jt4sYp3HbohfOeyjju0R8Jjz1OmhtW+OvJU25uyX35+HoujsOt3eeN61Rwi3XXf/6p23GHSk4FhGdX8wOzrWN0t8lw/9FJJtsViMcz/HADwm3lx3SclTx7Dg3vkIHJs6deQtd5R5Du+O7Twd8yVvDvtpAwKdCSDcOqPiwgUJHErUm5plAeezDPtGDTx16jYOLeSuux+RRD8QQsz1RdQlClLC2ZN9/eb6ZQl4vL/8gAmlbpRxFP1KSU511FRKS0S87Cih9dUSQLittmswrEbAH8oWZseib75t6Po0RyOcC+tYItO2zonD3f2A6BOVOxYFcXsc8cNbIicBv588XtvGeqlpNY5F0TmsPucooq5FCCDcFsFOoyMI9BFXQwRc30OvD7ny5epYrbcnUbm26dxjC63dzmckPb2KKo5AyK0QOEHASxH8HmmLND9M0ksLZeUvYP6saBOmpeWxK7QbMHsKAgi3KahS59QEIh2A17V0iY55utEf1K/saZjFlKeVurbTtfqIzPnVpyqEmDsWLYj6vdbOa/r6Tgl3tY/r9kPg0FrLqVPjTE3Z71+/V9o+I4hiT90D1D8JAYTbJFipdCYCjhj4m3VXYTUkAheueGrJD4L46SIY+2BIxdy3S3rWkTV3nvKJ3XJ92uFaCNQJWLxZ4DSdCfpeSY8pdMNCl6giO055PxRHAOFWXJdhcAMBP3gs3g5NjaS3+SHlNTx9d6GmdYSQ86t/uqy969N510i6uprOOnQfqUP6UOXaNgJ+D3nDQqT5Sa8rXbwdEqb2k9yJvC+KIoBwK6q7MLYDAUfg/NNlh6g/sJ0vLVeJaJyF3N0l3TpXxR3qySFGOzTDJRsncFn1Jaju5lslXSLpioL9P3RqSe7PgoIxYfraCSDc1t5D2DeUQETgugg4Cz2nEcld/E0/InOe1rWw62LPUDuulfQySZdWu1qH1sN9+ybQJt5eL+ncwo7HqvfkodRCXq7gPHYUCKyaAMJt1d2DcRkIdBVwnnK0gOu7gaGviXH6hEWcf/fmh9zr5cKmyDUXp1X4weQpWDY19O21/V3/AkkXNLjtTTFeklByOSTeiLyV3LM7sR3htpOOxs0TouwZkm5yhMUSOzbjTNhYL+fXKSNzRpAeRRaZ8uMVcccb5jZVFNoRtrR8RNK9Rq4PXQPdQ7kTHX335wUFAqskgHBbZbdg1IQE/G3bUa5DwmgtOzbTNXNziLkm7I5ExiYOc/Hvfq2LP//bnyclHpc04XArumqPvydLunfNi+dIekLRnl1n/CHxVmoC4g10Cy4cI4BwO0aI/98iga750ixQvHlhTWLED1OLuIjSNaVwWFOfpcIv7Iqp2/h3Gv3z3xzxC5G4Jl/2aIsjbpfXHP+kpPtK+vcNAGkTbx5/PvrLEXgKBFZFAOG2qu7AmJkJWAT5g/uY+Fn7js3YAOHcbzeemeFczVkA+iQKi+4PVL/XRaH/7f9P1/BZBLqUtK4v1kF+rQWu/99++udQ8f9bgHh8RDl2T1rfjaovCF5ecPNaQx+SZAG3hXInSbdscMTjzaeeeNPPGor7ksTba+iJhW1AuC3cATS/CgLewOAp1EObBEo44zBOlLhoFVTXb4T7tEtkL50ajt9DFDUJIgurY8Viqo+IOlYf/78PAv5ycvt9uIqXbQQQbowNCFxHoKvo8bSp17+sOYJjUeCM8MeSAn9YkncPhoCI9CXm4Tqm2u3KmIMABIYTOK3wlCzDPefOEwQQbgwECHwjAQsWT40e29XpKVbvPosIzBo5dokk2u5jU8ExdRcCtz71Vv+3r0f0rXFEYNMWCPDc3kIvjvCBATACHrdumoDTAThT/KFSwiHcXSOJ9tNROq+hGXMUWBMv2xDrsuL/0+heCMKI9KXX+PdjkcNND0Scg0BCYAt59OjQkQQQbiMBcvumCVhsWMwc27zg6VPvQMsteHLC9UYMr+PrIoKmEnA5/KmLwJjmrUf94rq0zfjbWqOBH68iuE1R3HoqliaW9VQtXXm7brPx/R7zscnD96f/57Nz0/IiSX9UXeP7vHwg1vfFfWkd6e/RXjpNn/qdrv9rq6urf32ve7qkn2q46TckvSVhEv7EF4+26Lv/Hlx9bdvvsW4y/f96v6w5wt+XM9cPJIBwGwiO23ZFwNG3LgfYWxj5G/GaP1y7Tp+6gz2FahE39WkSaxhMTVHB3HZ1EV+528xZX9Mu1y0+Q0Is1QU+GwNyjibqGkxgi2+6wTC4EQIHCPjD3CLmQUco+eFsAbfm9W/2xWLUP12iT46k2PcXr1yUMoCnJfCPku6TNPElSbfe6JhoWyrhyLrfCxQILEYA4bYYehoulICnHP3BfWzzggVcHJ+11ilUT8n4AdUnfYh98o9FHGVfBF5enTqSen0rSZ/eKAa/b+vvcw6i32hnl+QWwq2k3sLWtRDoG7Hyh70jcGvNwm4B56ng83oAtjC1X3uZSu2BZrOX+gSF+tmlPyzpfRv12MsKLmvwzXnU1vplbKNdgVspAYQb4wECwwn0FTwxjepo1Ro/+O2PH1Zdp1BTchZxFqZeD7dG34b3MncGgTdKcsQ5LWev7Ei43L3VFHXjHNPclKmvFwGEWy9cXAyBRgLe0eiI1bH1b3WhE9GqtW1mcETxnMqnY1PCTUBimthC7t0Iuc28a3z801mJN1dJuttmvGt2xOtV60sJ3twgYDeOAffWRADhtqbewJbSCfSNwNlfixwf1m0R94YVihyLUkfgLOS6bGRo6kNHLeyfX/3QIyJX3kh/tCSn/0jLpZLOL8+VXhZ7/L+z4Q6enb0wcnFOAgy+nDSpCwLXEYgpR0879olYxbqxtS7+t3izT54uGyrizMe7VP3j6VWE3LrfNY6+PkLS8xvM3MsOS78v6+P9ris/9m7dowrrRhFAuI3Cx80QOEogxE6fadSo1NM0Fjhr3MFpv/xjEddHnLYBs1i1kLO/nl6dc/rY4iQSE46zLKAAAAc1SURBVKdruNLfIyFs/QQI5zYr7XP0WkknSXLEzOk9zN1R3w9WGw0+UnWSff5DSQ9t6LQrJP3aTqKn5lNPwr31tX1HP9i4YDkCpX3gLEeKliEwjoAf+BY6nnYcInQ81egHyBpFnKeT7Jtfx0bjgrKnU/1jn+N3R+eGlBBmceZq/XVInVu+J6ay4xSEuq8Wdl739ZotQ0h8a1rnhnDbSeev0U2E2xp7BZu2TsDiJiJxQ6YcLeIcobKQmTMy1aVf4gxS++ifY8eFdamzfo2jcuG3X+P3utAIgTakDe5pJuBjr36/2riyF0beePSUmrMIt730/gr9RLitsFMwaVcEHKXyujELub6RuFJyqYWIm0rI7WrALOisE+16ivTCBW1Yoml/SaovdUC4LdETtHmCAMKNgQCB9RCwsInF/31FnL2I6VTnUltbJC6lbLHqdVMWq2dIOnU9XdDZkmuqBeufl3RKtS7PEb7gHgeG1w9Ld7/GvZ0b63Bh1OmD6psOaA+7binJNvuoqljj1jYlmjbr6dEnS3ppB1u2dslHqw1HqV9sTthaLxfkD8KtoM7C1F0RGCvi4miqEnZtWshZPERkLjYKzNXhsRki1tLVD4OPv89lz9ztmP2dJJ0p6furDQsnSzq9WmPoUz+81nDNXwamYkY6kKnIUu9gAgi3wei4EQKzERgr4iw8UiE3m+EjGgox51f/xNq5IWsCHYUK8ZW+pmvlRpjKrRsm4DFS/yJBAt4Nd3gJriHcSuglbITAdQQsXmJjw5iEuI6exM/QnZpL9ok51NNy1O1xdMgPXQoEhhLwe83HfNULR14NJcp9WQgg3LJgpBIILEIgVy61SLkRiXHnzqO2CDwahcABAo7yWrSl6wXj8tN2Om3MgFkJAYTbSjoCMyAwkkAkw/XmhiHTiW0Rq/oUoxfBE8ka2VncvmoC50ly7rYm0ebcdQ9ctfUYt3kCCLfNdzEO7pBALPK3mJtqoX86FZmuFXP0LgqRux0Ovglcjt26HsseUyGocp15GwmaI4LdtsvWX1rSncMTuEqVEDhOAOF2nBFXQKBkAnFiQ4i5HNG4vjz8wPNnzWdrmwRcjx++aRLd2EjQt42tXJ8ev1X3ydN3Lk2RoPTaVHik1x67z3XcVtKNjhxl1bSpo8/O21ifaHuclsSpNXwEl8eBx6lfu9ja1uf1MXVobKTHmh26zmPYwi79YrKVMYcfhRFAuBXWYZgLgZEE4liqeB2SL26kCb1ur4uEpk0HbQ9qP2xTcdir4ZaL4zQGn1FaL7HzNf1720YKTnXI0Rvz1OFx5CUI3plNgcDiBBBui3cBBkBgUQLpEVUhJqY4pmpRJ2kcAgMJeGrWkbZc07IDzeA2CHydAMKN0QABCDQRCEEXYi6NJiHsGDNbJ+A0OT6JxD8UCKyKAMJtVd2BMRAoikAq6tJ1S+n0oP++xLq6okBi7DcR6LN7OcbemHEWJ4x4at5TokTYGJSrJYBwW23XYBgENkcgXVxfXw8WpyPY6RB+Yx7EpcFr25QRGzfahET8f7rBo4vvcb1Fj+uO1zhjNfrB1zXtsvR10U/RXtMav9SWJl9isf9XJL0nc3602OBQT9YcR3eR1qbLSOGa1RFAuK2uSzAIAhCoEWha4N9nI0CIkHj1vX1EoaM/sQGiqXPqZ5vGNW2nN3DUFkMcAhAYTADhNhgdN0IAAhCAAAQgAIF5CSDc5uVNaxCAAAQgAAEIQGAwAYTbYHTcCAEIQAACEIAABOYlgHCblzetQQACEIAABCAAgcEEEG6D0XEjBCAAAQhAAAIQmJcAwm1e3rQGAQhAAAIQgAAEBhNAuA1Gx40QgAAEIAABCEBgXgIIt3l50xoEIAABCEAAAhAYTADhNhgdN0IAAhCAAAQgAIF5CSDc5uVNaxCAAAQgAAEIQGAwAYTbYHTcCAEIQAACEIAABOYlgHCblzetQQACEIAABCAAgcEEEG6D0XEjBCAAAQhAAAIQmJcAwm1e3rQGAQhAAAIQgAAEBhNAuA1Gx40QgAAEIAABCEBgXgIIt3l50xoEIAABCEAAAhAYTADhNhgdN0IAAhCAAAQgAIF5CSDc5uVNaxCAAAQgAAEIQGAwAYTbYHTcCAEIQAACEIAABOYlgHCblzetQQACEIAABCAAgcEEEG6D0XEjBCAAAQhAAAIQmJcAwm1e3rQGAQhAAAIQgAAEBhNAuA1Gx40QgAAEIAABCEBgXgIIt3l50xoEIAABCEAAAhAYTADhNhgdN0IAAhCAAAQgAIF5CSDc5uVNaxCAAAQgAAEIQGAwAYTbYHTcCAEIQAACEIAABOYlgHCblzetQQACEIAABCAAgcEEEG6D0XEjBCAAAQhAAAIQmJcAwm1e3rQGAQhAAAIQgAAEBhNAuA1Gx40QgAAEIAABCEBgXgIIt3l50xoEIAABCEAAAhAYTADhNhgdN0IAAhCAAAQgAIF5Cfw/49HiB2JXN0wAAAAASUVORK5CYII="]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="QQUEST" uuid="77c53db4-293e-4218-b9b9-a2130a6bbca7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+		<parameter name="PRJ_ID" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT TPQ.QUEST_TITLE, REPLACE(TPQA.IMG,'data:image/jpeg;base64,', '') as IMG FROM TB_PRJ_QUESTS AS TPQ LEFT JOIN TB_PRJ_QUESTS_ANSWER AS TPQA ON (TPQ.ANSWER_ID=TPQA.ANSWER_ID) WHERE TPQ.PRJ_ID= $P{PRJ_ID}]]>
+		</queryString>
+		<field name="QUEST_TITLE" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="QUEST_TITLE"/>
+		</field>
+		<field name="IMG" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="IMG"/>
+		</field>
+	</subDataset>
+	<subDataset name="QCHECKLIST" uuid="77c53db4-293e-4218-b9b9-a2130a6bbca7">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+		<parameter name="PRJ_ID" class="java.lang.String"/>
+		<queryString language="SQL">
+			<![CDATA[SELECT C.LCAT_ID, C.TITLE FROM TB_PRJ P, TB_CHECKLIST_CATEGORIES C WHERE C.PT_ID=P.PT_ID AND P.PRJ_ID=$P{PRJ_ID} ORDER BY C.LCAT_ID]]>
+		</queryString>
+		<field name="TITLE" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="TITLE"/>
+		</field>
+		<field name="LCAT_ID" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="LCAT_ID"/>
+		</field>
+		<variable name="Variable_1" class="java.lang.String">
+			<variableExpression><![CDATA[$F{LCAT_ID}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="PRJ_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT PRJ.PRJ_CODE,PRJ.FIRST_AID_CONTACT,PRJ.NAME,PRJ.TASK_LOCATION,CUS.NAME AS CUSNAME, TPT.TITLE AS TPTTITLE,TPT.DESCRIPTION AS TPDESCRIPTION,TPTC.TITLE AS TPCTTITLE,
+getUserFullNameById(PRJ.SUPERVISIOR_ID) AS SUPERVISIOR,REPLACE(PRJ.SIGNATURE,'data:image/png;base64,', '') as SIGNATURE,PRJ.`COMMENT`,
+DATE_FORMAT(PRJ.BEGIN_DATE, "%d/%m/%Y") as BEGIN_DATE, DATE_FORMAT(PRJ.END_DATE, "%d/%m/%Y") as END_DATE, DATE_FORMAT(PRJ.CREATE_DATE, "%d/%m/%Y") as CREATE_DATE,
+TPH.EI_NAME,TPH.EI_ADDRESS,TPH.EI_CITY,DATE_FORMAT(TPH.EI_BIRTHDATE, "%d/%m/%Y") as EI_BIRTHDATE,TPH.EI_SIN,
+ TPH.EI_POSTCODE,TPH.EI_CELLPHONE,TPH.EI_HOMEPHONE,TPH.EI_EMAIL,TPH.EI_DRIVERLICENSE
+ ,TPH.EI_CLASS,DATE_FORMAT(TPH.EI_EXPIREDATE, "%d/%m/%Y") as EI_EXPIREDATE,TPH.ECI_NAME,TPH.ECI_PHONE,TPH.ECI_RELATIONSHIP  FROM TB_PRJ AS PRJ
+LEFT JOIN CUSTOMERS AS CUS ON (PRJ.CUSTOMER_ID=CUS.CUSTOMER_ID)
+LEFT JOIN TB_PRJ_TEMPLATES AS TPT ON (TPT.PT_ID=PRJ.PT_ID)
+LEFT JOIN TB_PRJ_TMPL_CATEGORIES AS TPTC ON (TPT.PT_CAT_ID=TPTC.PT_CAT_ID)
+left join TB_PRJ_HR_1_1 AS TPH on (TPH.PRJ_ID=PRJ.PRJ_ID) where PRJ.PRJ_ID= $P{PRJ_ID}]]>
+	</queryString>
+	<field name="PRJ_CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PRJ_CODE"/>
+	</field>
+	<field name="FIRST_AID_CONTACT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FIRST_AID_CONTACT"/>
+	</field>
+	<field name="NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NAME"/>
+	</field>
+	<field name="TASK_LOCATION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TASK_LOCATION"/>
+	</field>
+	<field name="CUSNAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CUSNAME"/>
+	</field>
+	<field name="TPTTITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TPTTITLE"/>
+	</field>
+	<field name="TPDESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TPDESCRIPTION"/>
+	</field>
+	<field name="TPCTTITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TPCTTITLE"/>
+	</field>
+	<field name="SUPERVISIOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SUPERVISIOR"/>
+	</field>
+	<field name="SIGNATURE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SIGNATURE"/>
+	</field>
+	<field name="COMMENT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMMENT"/>
+	</field>
+	<field name="BEGIN_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BEGIN_DATE"/>
+	</field>
+	<field name="END_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="END_DATE"/>
+	</field>
+	<field name="CREATE_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CREATE_DATE"/>
+	</field>
+	<field name="EI_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_NAME"/>
+	</field>
+	<field name="EI_ADDRESS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_ADDRESS"/>
+	</field>
+	<field name="EI_CITY" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_CITY"/>
+	</field>
+	<field name="EI_BIRTHDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_BIRTHDATE"/>
+	</field>
+	<field name="EI_SIN" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_SIN"/>
+	</field>
+	<field name="EI_POSTCODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_POSTCODE"/>
+	</field>
+	<field name="EI_CELLPHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_CELLPHONE"/>
+	</field>
+	<field name="EI_HOMEPHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_HOMEPHONE"/>
+	</field>
+	<field name="EI_EMAIL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_EMAIL"/>
+	</field>
+	<field name="EI_DRIVERLICENSE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_DRIVERLICENSE"/>
+	</field>
+	<field name="EI_CLASS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_CLASS"/>
+	</field>
+	<field name="EI_EXPIREDATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EI_EXPIREDATE"/>
+	</field>
+	<field name="ECI_NAME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ECI_NAME"/>
+	</field>
+	<field name="ECI_PHONE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ECI_PHONE"/>
+	</field>
+	<field name="ECI_RELATIONSHIP" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ECI_RELATIONSHIP"/>
+	</field>
+	<variable name="Variable_1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="76" splitType="Immediate">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<line>
+				<reportElement x="6" y="75" width="568" height="1" uuid="fd804e22-0dec-4575-8795-fb4ba973fdce"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="5" width="470" height="60" uuid="34690c4f-cb84-44ec-80be-016264c69359"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clintar Commercial Outdoor Services
+New Employee Package]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="475" y="5" width="100" height="60" uuid="b16530d2-c272-4dfd-ae68-c1eb84f803c7"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="Q2" uuid="2db6c840-71ee-4fbb-9ee2-c8f5ff107bea">
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="60" width="100">
+						<image scaleImage="FillFrame" isLazy="true">
+							<reportElement x="0" y="0" width="100" height="60" uuid="42301fd3-0430-4200-a188-b88c087a768e"/>
+							<imageExpression><![CDATA[new ByteArrayInputStream(Base64.decodeBase64($F{LOGO}.getBytes()))]]></imageExpression>
+						</image>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50"/>
+	</columnHeader>
+	<detail>
+		<band height="573">
+			<staticText>
+				<reportElement x="5" y="16" width="268" height="30" uuid="2ce90d73-93e2-4329-bccf-b25dc0fd7f78"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="64" width="100" height="30" uuid="eaac755b-de26-4fde-8b5d-0b4785e37953"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="63" width="460" height="30" uuid="87bd6150-3c1b-4198-8263-4f7c5459b9ad"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="121" width="460" height="30" uuid="cd3d0385-0b9a-4b20-a5fa-59fcbec9dbaf"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_ADDRESS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="121" width="100" height="30" uuid="d8e07650-7071-433d-88d4-1d40eca4be15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="172" width="460" height="30" uuid="a4b8a5db-9eed-4efe-a744-158da4cf05e4"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_CITY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="172" width="100" height="30" uuid="a7904a5b-34b1-42a5-99ab-d21f6eb39974"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[City & Provinc]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="220" width="460" height="30" uuid="1671d126-190b-4060-8b61-7d52423855d8"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_POSTCODE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="220" width="100" height="30" uuid="6ae803a7-74da-47dd-942d-bf1e5fc0b6e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Postal Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="270" width="100" height="30" uuid="69039e59-5bc1-4e5c-9431-6946299c1cb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Phone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="270" width="100" height="30" uuid="98ac844e-dffe-44d4-98f8-a23c6845c152"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Home]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="270" width="100" height="30" uuid="3b622f4b-24d9-45f4-8a29-106599cf23c0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cell]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="270" width="130" height="30" uuid="5a8d5880-6e44-4edf-8a14-593249703d81"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_HOMEPHONE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="270" width="129" height="30" uuid="ed4c51d5-8bb5-47df-86ae-d2bb9017bcc5"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_CELLPHONE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="322" width="100" height="30" uuid="affcd895-9fff-424a-a7a0-dad9eca0ab08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Email Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="370" width="100" height="30" uuid="76a74379-e1b0-49bd-b74f-d6c95dd8e82e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="420" width="100" height="30" uuid="17fd3e8e-ba78-48b1-968e-12473dfe2a3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[S.I.N ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="470" width="100" height="30" uuid="c1b38fe2-6f69-4816-99f6-27b3fc801c7e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Drivers License]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="520" width="100" height="30" uuid="2728aafc-5b12-4b65-944b-9e5bb3527d56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Class]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="520" width="100" height="30" uuid="f2450461-4b06-43ef-9d99-7d1870616247"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Expiry Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="322" width="460" height="30" uuid="2c119881-bb9f-46ca-bf5f-3e8d1de63077"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_EMAIL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="370" width="460" height="30" uuid="a665f4d6-8d49-4e9e-83a1-b583a5589386"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_BIRTHDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="420" width="460" height="30" uuid="642cab1f-2c1c-4c33-894b-95a4b5e8cafd"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_SIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="470" width="460" height="30" uuid="4e279224-fb8b-4cd6-b85f-576c0f2b319c"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_DRIVERLICENSE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="520" width="115" height="30" uuid="75d3f104-25db-4646-bf9f-c9498c3e4893"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_CLASS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="520" width="115" height="30" uuid="e6609079-88e5-416b-82ca-7fbab3f74e81"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{EI_EXPIREDATE}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="341">
+			<staticText>
+				<reportElement x="5" y="16" width="268" height="30" uuid="b4100a9c-9c9b-453d-83f5-09d142825698"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emergency Contact Information]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="64" width="100" height="30" uuid="e9fc2c20-be42-42c5-987c-efd6ab6e06aa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="63" width="460" height="30" uuid="b46370cc-0d00-468f-8da4-01693d0d62f4"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ECI_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="121" width="100" height="30" uuid="bfc878a9-28c7-42b9-8ba4-b7163223f902"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Phone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="121" width="460" height="30" uuid="354568af-d55a-45bb-ae10-b7fedd62963c"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ECI_PHONE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="172" width="100" height="30" uuid="a64e1127-0cd1-4ead-aa27-964eeb7ec8f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Relationship]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="172" width="460" height="30" uuid="e1132bbb-c58d-414f-bf67-74a226f44815"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ECI_RELATIONSHIP}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="220" width="135" height="30" uuid="bb968208-e7ef-4a2b-8681-f04dde783a72"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="220" width="230" height="30" uuid="893dec0d-daf8-414e-af10-93c2312c7d28"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CREATE_DATE}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="380" y="260" width="130" height="40" uuid="62dcb9f4-4130-4346-869c-8f4d0d1a09dc"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<imageExpression><![CDATA[new ByteArrayInputStream(Base64.decodeBase64($F{SIGNATURE}.getBytes()))]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="340" y="310" width="230" height="1" uuid="6249c431-620b-4954-8f1c-3d85c0073394"/>
+			</line>
+			<staticText>
+				<reportElement x="200" y="280" width="135" height="30" uuid="22a7fc79-4037-4ed8-bc4e-0ec59170a1c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Employee Signature]]></text>
+			</staticText>
+		</band>
+		<band height="200">
+			<subreport>
+				<reportElement x="3" y="0" width="572" height="200" uuid="3b5800ac-8f12-458f-8399-a6fad09a3d17"/>
+				<subreportParameter name="PRJ_ID">
+					<subreportParameterExpression><![CDATA[$P{PRJ_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["ToolboxProject_HR_1_1_2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="530" y="0" width="40" height="20" uuid="08a4988d-2ce0-4681-ac76-569da21599f7"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

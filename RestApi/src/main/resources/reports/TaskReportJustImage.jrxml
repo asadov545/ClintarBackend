@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TaskReportJustImage" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9f146ea0-7760-44cc-aef3-532303305307">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ArtiConnNew"/>
+	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="serverBaseURL" class="java.lang.String">
+		<defaultValueExpression><![CDATA["http"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="taskStatusId" class="java.lang.Integer"/>
+	<parameter name="beginDateFrom" class="java.lang.Long"/>
+	<parameter name="beginDateTo" class="java.lang.Long"/>
+	<parameter name="pAssignIds" class="java.lang.String"/>
+	<parameter name="dueDateFrom" class="java.lang.Long"/>
+	<parameter name="dueDateTo" class="java.lang.Long"/>
+	<parameter name="priorityId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT  T.TASK_ID,T.TASK_STATUS_ID,TS.TITLE AS TSTITLE,CONCAT(UF.RELATIVE_PATH,"/",UF.FILENAME) AS PHOTO,T.CODE,T.TITLE AS TASKTITLE,T.LOC_ID,TP.TP_ID,
+		cast(T.BEGIN_DATE as Date) AS BEGIN_DATE,  cast(T.DUE_DATE as Date) AS DUE_DATE, T.DESCRIPTION,getUserFullNameById(T.CREATE_USER_ID) AS OWNER ,getAssigneeByTaskId(T.TASK_ID,1) as inspector,getAssigneeByTaskId(T.TASK_ID,2) as contractor FROM TASKS AS T
+LEFT JOIN TASK_STATUS AS TS ON (T.TASK_STATUS_ID=TS.TASK_STATUS_ID) 
+LEFT JOIN TASK_PHOTOS  AS TP ON (T.TASK_ID=TP.TASK_ID AND TP.TP_ID =(SELECT MIN(TPS.TP_ID) FROM TASK_PHOTOS AS TPS WHERE TPS.TASK_ID=T.TASK_ID GROUP BY TPS.TP_ID LIMIT 1)
+)
+LEFT JOIN UPLOADED_FILES AS UF ON (UF.UPFID=TP.UPFID)
+WHERE ($P{title} is null OR $P{title}='' OR T.TITLE LIKE $P{title}) 
+AND ($P{taskStatusId} < 0 or T.TASK_STATUS_ID=$P{taskStatusId})
+AND ($P{priorityId} < 0 or T.PRIORITY_ID=$P{priorityId})
+AND ($P{beginDateFrom} <= 0 or IFNULL(UNIX_TIMESTAMP(T.BEGIN_DATE),0)>=$P{beginDateFrom})
+AND ($P{beginDateTo} <= 0 or IFNULL(UNIX_TIMESTAMP(T.BEGIN_DATE),0)<=$P{beginDateTo})
+and UF.FILENAME is not null
+AND ($P{dueDateFrom} <= 0 or IFNULL(UNIX_TIMESTAMP(T.DUE_DATE),0)>=$P{dueDateFrom})
+AND ($P{dueDateTo} <= 0 or IFNULL(UNIX_TIMESTAMP(T.DUE_DATE),0)<=$P{dueDateTo})
+AND ($P{pAssignIds} is null or $P{pAssignIds} = '-1' or EXISTS (SELECT 1 FROM TASK_ASSIGNEES AS TA WHERE (T.TASK_ID=TA.TASK_ID AND TA.USER_ID IN ($P!{pAssignIds}))))]]>
+	</queryString>
+	<field name="TSTITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TSTITLE"/>
+	</field>
+	<field name="CODE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CODE"/>
+	</field>
+	<field name="PHOTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PHOTO"/>
+	</field>
+	<field name="TASKTITLE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TASKTITLE"/>
+	</field>
+	<field name="BEGIN_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BEGIN_DATE"/>
+	</field>
+	<field name="DUE_DATE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DUE_DATE"/>
+	</field>
+	<field name="DESCRIPTION" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DESCRIPTION"/>
+	</field>
+	<field name="OWNER" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="OWNER"/>
+	</field>
+	<field name="contractor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="contractor"/>
+	</field>
+	<field name="inspector" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="inspector"/>
+	</field>
+	<field name="TASK_ID" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="TASK_ID"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="21" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="50" y="0" width="90" height="20" uuid="78126cbc-cd0d-47b1-8711-a35b96c8bbbd"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="20" uuid="b9d65879-331d-46dd-b409-0990783ad55c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Exported :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="368" splitType="Prevent">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="368" uuid="249d1395-eb53-4c65-b9f4-40444aac3683"/>
+				<subreportParameter name="task_id">
+					<subreportParameterExpression><![CDATA[$F{TASK_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PHOTO_LINK">
+					<subreportParameterExpression><![CDATA[$F{PHOTO}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="base_url">
+					<subreportParameterExpression><![CDATA[$P{serverBaseURL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["TaskReportJustImage_photos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="510" y="0" width="40" height="20" uuid="08a4988d-2ce0-4681-ac76-569da21599f7"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

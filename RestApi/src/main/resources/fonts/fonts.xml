@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+
+    <fontFamily name="Times New Roman">
+        <normal><![CDATA[fonts/times/TIMES.TTF]]></normal>
+        <bold><![CDATA[fonts/times/TIMESBD.TTF]]></bold>
+        <italic><![CDATA[fonts/times/TIMESI.TTF]]></italic>
+        <boldItalic><![CDATA[fonts/times/TIMESBI.TTF]]></boldItalic>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+        <pdfEncoding>Identity-H</pdfEncoding>
+    </fontFamily>
+	
+	 <fontFamily name="Arial">
+        <normal><![CDATA[fonts/arial/ARIAL.TTF]]></normal>
+        <bold><![CDATA[fonts/arial/ARIALBD.TTF]]></bold>
+        <italic><![CDATA[fonts/arial/ARIALI.TTF]]></italic>
+        <boldItalic><![CDATA[fonts/arial/ARIALBI.TTF]]></boldItalic>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+        <pdfEncoding>Identity-H</pdfEncoding>
+    </fontFamily>
+
+</fontFamilies>
+
